@@ -1,0 +1,1 @@
+console.log('Hopefully you have a working docker container and image.');
