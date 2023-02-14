@@ -1,24 +1,24 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-
+import bcrypt from "bcrypt";
+import bodyparser from "body-parser";
+import userRoutes from "./app/routes/user.routes"
+require ("dotenv").config();
+require ('./app/config/db.config');
 const app = express();
-
-var corsOptions = {
-    origin: "http://localhost:4001"
-};
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
-app.use(json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(urlencoded({ extended: true }));
-
+app.use(express.json({ limit: "10MB" }));
+app.use(express.urlencoded({ extended: true }));
+//app.use("/", userRoutes);
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
+   //router.get("/", defaultController);
+    res.json({ message: "yikes" });
 });
+
+// require("./app/routes/tutorial.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;

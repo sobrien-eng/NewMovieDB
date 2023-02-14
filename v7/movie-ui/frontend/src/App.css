@@ -1,0 +1,49 @@
+.root {
+  /* Buttonbg */
+  /* photo, video, location icons */
+  --icon: #5d5e66;
+  --blue: #1e91e9;
+
+}
+.blur {
+  position: absolute;
+  width: 22rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: #a6ddf0;
+  filter: blur(72px);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--buttonBg);
+  transition: all 100ms ease-out;
+}
+
+.button:hover {
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  cursor: pointer;
+  background: transparent;
+}
+
+.button:disabled{
+  background: rgb(93, 92, 92);
+  pointer-events: none;
+}
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+.App {
+  overflow: hidden;
+  color: var(--black);
+  background: #fefbfb;
+  padding: 1rem 1rem;
+}
