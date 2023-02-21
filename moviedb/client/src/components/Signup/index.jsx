@@ -27,7 +27,7 @@ const closeBtn = document.querySelector(".close");
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:4000/signup";
+			const url = "http://localhost:3000/signup";
 			const { data: res } = await axios.post(url, data);
 			navigate("/login");
 			console.log(res.message);
@@ -47,7 +47,7 @@ const closeBtn = document.querySelector(".close");
 			
 			<div className={styles.signup_form_container}>
 				<div className={styles.left}>
-				<h1>New to FindMe?</h1>
+				<h1>Already have an Account?</h1>
 					<Link to="/login">
 						<button type="button" className={styles.white_btn}>
 							Sign in
@@ -60,17 +60,11 @@ const closeBtn = document.querySelector(".close");
 						<h1>Create Account</h1>
 						<input type="text" placeholder="First Name" name="firstName" onChange={handleChange} value={data.firstName} required className={styles.input} />
 						<input type="text" placeholder="Last Name" name="lastName" onChange={handleChange} value={data.lastName} required className={styles.input} />
-						<input type="email" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className={styles.input} />
-						<input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
-						<select name = "topics" id = "topics">
-							<option>Art</option>
-							<option>Cinema/Theater</option>
-							<option>Coding</option>
-							<option>Music</option>
-							<option>Spatial Design</option>
-							<option>Writing/Literature</option>
+						<input type="text" placeholder="Username" name="username" onChange={handleChange} value={data.username} required className={styles.input} />
 
-						</select>
+						<input type="email" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className={styles.input} />
+						
+						<input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
 						{error && <div className={styles.error_msg}>{error}</div>}
 						<button type="submit" className={styles.blue_btn}>
 							Sign Up

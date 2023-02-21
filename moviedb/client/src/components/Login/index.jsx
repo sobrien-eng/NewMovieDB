@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import {login} from "../../actions/user";
+// import {login} from "../../actions/user";
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
@@ -61,7 +61,7 @@ const Login = () => {
 					</form>
 				</div>
 				<div className={styles.right}>
-					<h1>Create a new account</h1>
+					<h1>New to our MovieDB?</h1>
 					<Link to="/signup">
 						<button type="button" className={styles.white_btn}>
 							Sign Up
