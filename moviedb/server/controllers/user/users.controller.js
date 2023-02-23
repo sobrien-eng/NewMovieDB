@@ -4,46 +4,62 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import errorFunction from "../../utils/errorFunction.js";
 import securePassword from "../../utils/hash.js";
+import {} from "../config/db.config.js";
 
 
 export async function create(req, res) {
-    if (!req.body) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-    }
-    try {
-		const existingUser = await User.findOne({
-			email: req.body.email,
-		}).lean(true);
-		if (existingUser) {
-			res.status(403);
-			return res.json(errorFunction(true, "User Already Exists"));
-		} else {
-			const hashedPassword = await securePassword(req.body.password);
-			const newUser = User.create({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                userName: req.body.userName,
-                email: req.body.email,
-                password: hashedPassword,
-                mobileNumber: req.body.mobileNumber,
-            });
-			if (newUser) {
-				res.status(201);
-				return res.json(
-					errorFunction(false, "User Created", newUser)
-				);
-			} else {
-				res.status(403);
-				return res.json(errorFunction(true, "Error Creating User"));
-			}
-		}
-	} catch (error) {
-		res.status(400);
-		console.log(error);
-		return res.json(errorFunction(true, "Error Adding user"));
-	}
+    // if (!req.body) {
+    //     res.status(400).send({
+    //         message: "Content can not be empty!"
+    //     });
+    // }
+    // try {
+	// 	const existingUser = await User.findOne({
+	// 		email: req.body.email,
+	// 	}).lean(true);
+	// 	if (existingUser) {
+	// 		res.status(403);
+	// 		return res.json(errorFunction(true, "User Already Exists"));
+	// 	} else {
+	// 		const hashedPassword = await securePassword(req.body.password);
+	// 		const newUser = User.create({
+    //             firstName: req.body.firstName,
+    //             lastName: req.body.lastName,
+    //             userName: req.body.userName,
+    //             email: req.body.email,
+    //             password: hashedPassword,
+    //             mobileNumber: req.body.mobileNumber,
+    //         });
+	// 		if (newUser) {
+	// 			res.status(201);
+	// 			return res.json(
+	// 				errorFunction(false, "User Created", newUser)
+    //                 //ADD TO DB
+    //                 router.post('/signup', userValidation(req, res, next) => {
+    //                     const firstName = req.body.firstName;
+    //                     const lastName = req.body.lastName;
+    //                     const username = req.body.username;
+    //                     const email = req.body.email;
+    //                     const password = req.body.password;
+                    
+    //                     db.query(
+    //                         "INSERT INTO users (firstName, lastName, username, email, password) VALUES (?, ?, ?, ?, ?)",
+    //                         [firstName, lastName, username, email, password],
+    //                         (err, result) => {
+    //                             console.log(err);
+    //                         }
+    //                     );
+	// 			);
+	// 		} else {
+	// 			res.status(403);
+	// 			return res.json(errorFunction(true, "Error Creating User"));
+	// 		}
+	// 	}
+	// } catch (error) {
+	// 	res.status(400);
+	// 	console.log(error);
+	// 	return res.json(errorFunction(true, "Error Adding user"));
+	// }
 }
 export const getAllUsers = async (req, res) => {
     try {
@@ -182,6 +198,25 @@ export const login = async (req, res) => {
                     { expiresIn: "1h" }
                 );
                 res.status(200).json({ user, token });
+                const username = req.body.username;
+                const password = req.body.password;
+            
+                db.query(
+                    "SELECT * FROM users WHERE username = ? AND password = ?",
+                    [username, password],
+                    (err, result) => {
+                        if(err){
+                            res.send({err:err});
+                            console.log(err);
+                        } 
+                        if(result){
+                            res.send(result);
+                        } else{
+                            res.send({message: "This username/password combination wasn't recognized."})
+                        }
+                        
+                    }
+                );
             }
         } else {
             res.status(404).json("User not found");

@@ -9,11 +9,10 @@ const validation = Joi.object({
     userName: Joi.string().alphanum().min(3).max(25).trim(true).required(),
 	email: Joi.string().email().trim(true).required(),
 	password: Joi.string().min(8).trim(true).required(),
-	mobileNumber: Joi.string()
-		.length(10)
-		.pattern(/[6-9]{1}[0-9]{9}/)
-		.required(),
-	//birthYear: number().integer().min(1920).max(2000),
+	// mobileNumber: Joi.string()
+	// 	.length(10)
+	// 	.pattern(/[6-9]{1}[0-9]{9}/)
+	// 	.required(),
 });
 
 const userValidation = async (req, res, next) => {
@@ -23,9 +22,7 @@ const userValidation = async (req, res, next) => {
 		userName: req.body.userName,
 		email: req.body.email,
 		password: req.body.password,
-		mobileNumber: req.body.mobileNumber,
-		//birthYear: req.body.birthYear,
-		
+		//mobileNumber: req.body.mobileNumber,
 	};
 
 	const { error } = validation.validate(payload);
