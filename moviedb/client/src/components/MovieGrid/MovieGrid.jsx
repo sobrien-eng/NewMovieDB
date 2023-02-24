@@ -6,6 +6,7 @@ const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=245b5a23f0b2
 const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query";
 const MovieGrid = () => {
   const [movies, setMovies]=useState([]);
+  const [people, setPeople]=useState([]);
   const [query, setQuery]=useState('');
 
   useEffect(() => {
@@ -33,6 +34,21 @@ const MovieGrid = () => {
     }
   }
 
+  const searchPerson = async(e)=>{
+    e.preventDefault();
+    console.log("Searching Person");
+    try{
+      const url=`https://api.themoviedb.org/3/search/person?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query=${query}`;
+      const res= await fetch(url);
+      const data= await res.json();
+      console.log(data);
+      setMovies(data.results);
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
+
   const changeHandler=(e)=>{
     setQuery(e.target.value);
   }
@@ -47,7 +63,18 @@ const MovieGrid = () => {
 					aria-label="search"
 					name="query"
 					value={query} onChange={changeHandler}></FormControl>
-				<Button variant="secondary" type="submit">Search</Button>
+				<Button variant="secondary" type="submit">Search Movie</Button>
+			</Form>
+
+      <Form className="d-flex" onSubmit={searchPerson} autoComplete="off">
+				<FormControl
+					type="search"
+					placeholder="People Search"
+					className="me-2"
+					aria-label="search"
+					name="query"
+					value={query} onChange={changeHandler}></FormControl>
+				<Button variant="secondary" type="submit">Search Person</Button>
 			</Form>
   
     <div>
