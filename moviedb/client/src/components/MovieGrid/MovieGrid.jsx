@@ -86,7 +86,7 @@ const MovieGrid = () => {
             </div>
     </div>
       ):(
-        <h2>No movies found</h2>
+        <h2>No Results Found</h2>
       )}
     </div>
     </>
