@@ -1,14 +1,12 @@
 import React from 'react'
-import Nav from "../NavBar/Navigation"
+//import Nav from "../NavBar/Navigation"
 
 const Home = () => {
   return (
-    <>
-    <Nav/>
-    <div>Home</div>
-    
-    </>
+    <Home>
+      <p>Home</p>
+    </Home>
   )
 }
 
-export default Home
+export default Home;

@@ -1,4 +1,4 @@
-import { show,Button} from 'react-bootstrap';
+//import { show,Button} from 'react-bootstrap';
 import React, {useState} from 'react';
 import Nav from "../NavBar/Navigation"
 const API_IMG="https://image.tmdb.org/t/p/w500/";
