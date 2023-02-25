@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from "./styles.css";
+import "./styles.css";
 import { Navbar,Container,Nav,Form, FormControl,Button } from 'react-bootstrap';
 import { Link, useNavigate } from "react-router-dom";
 import Admin from '../AdminPage/Admin';
@@ -9,7 +9,7 @@ import Movie from "../Movie/Movie"
 const Navigation = () => {
    
     return (
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <Link to="/" class="navbar-brand">
                     MovieDB
