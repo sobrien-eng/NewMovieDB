@@ -1,7 +1,8 @@
 import React from 'react'
-import Nav from "../NavBar/Navigation";
-import revRat from "../RevRat/RevRat";
+import Nav from "../../components/NavBar/Navigation";
+import revRat from "../../components/RevRat/RevRat";
 const Admin = () => {
+
     return (
         <>
             <Nav />

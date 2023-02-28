@@ -4,8 +4,7 @@ import { Navbar,Container,Nav,Form, FormControl,Button } from 'react-bootstrap';
 import { Link, useNavigate } from "react-router-dom";
 import Admin from '../AdminPage/Admin';
 import Home from "../HomePage/Home";
-import Movie from "../Movie/Movie"
-
+import MoviePage from "../Moviepage/MoviePage";
 const Navigation = () => {
    
     return (
@@ -19,12 +18,6 @@ const Navigation = () => {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                        <li class="nav-item">
-                            <Link to="/movie" class="nav-link">
-                                Movie
-                            </Link>
-                        </li>
                         <li class="nav-item">
                             <Link to="/admin" class="nav-link">
                                 Admin

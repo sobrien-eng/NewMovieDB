@@ -60,7 +60,7 @@ function App() {
 					<Route path="/signup" exact element={<Signup />} />
 					<Route path="/login" exact element={<Login />} />
 					<Route path="/admin" exact element={<Admin />} />
-					<Route path="/movie" exact component={<MoviePage />} />
+					<Route path="/movie/:id" exact element={<MoviePage />} />
 					{/* <Route path={['/user/:name', '/topics/:name']} component={UsersAndTopics} /> */}
 					<Route path="/" element={<Navigate replace to="/login" />} />
 				</Routes>
