@@ -50,8 +50,7 @@ function App() {
 		<div className="App">
 			<Nav/>
 
-
-			<BrowserRouter>
+<BrowserRouter>
 				<Routes>
 					{/* user && */}
 					{<Route path="/main" exact element={<Home />} />}
@@ -59,7 +58,8 @@ function App() {
 					<Route path="/login" exact element={<Login />} />
 					<Route path="/admin" exact element={<Admin />} />
 
-					{/* <Route path="/posts/:id" exact component={PostDetails} /> */}
+					{/* <Rout
+			e path="/posts/:id" exact component={PostDetails} /> */}
 					{/* <Route path={['/user/:name', '/topics/:name']} component={UsersAndTopics} /> */}
 					<Route path="/" element={<Navigate replace to="/login" />} />
 				</Routes>
