@@ -4,8 +4,7 @@ import { Navbar,Container,Nav,Form, FormControl,Button } from 'react-bootstrap';
 import { Link, useNavigate } from "react-router-dom";
 import Admin from '../AdminPage/Admin';
 import Home from "../HomePage/Home";
-import Movie from "../Movie/Movie"
-
+import MoviePage from "../Moviepage/MoviePage";
 const Navigation = () => {
    
     return (

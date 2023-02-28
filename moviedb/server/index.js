@@ -3,20 +3,21 @@ import cors from "cors";
 import bcrypt from "bcrypt";
 import bodyparser from "body-parser";
 //import userRoutes from "./app/routes/userRoutes.js";
-//var mysql = require('mysql');
+//const mysql = require('mysql')
+//import mysql from "mysql";
 
 // var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "admin",
-//   password: "numeroUno1!",
-//   port: "3306",
-//   url: "numerouno.cvhhp3kvk3ey.us-west-2.rds.amazonaws.com"
+//     host: "numerouno.cvhhp3kvk3ey.us-west-2.rds.amazonaws.com",
+//     user: "admin",
+//     password: "numeroUno1!",
+//     port: "3306",
 // });
 
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
+// con.connect(function (err) {
+//     if (err) throw err;
+//     console.log("Connected!");
 // });
+
 const app = express();
 
 //app.use(cors(corsOptions));

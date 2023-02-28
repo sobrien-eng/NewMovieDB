@@ -55,7 +55,7 @@ const MovieGrid = () => {
         <div className="container">
         <div className="grid">
           {movies.map((movieReq)=>
-          <Movie key={movieReq.id} {...movieReq}/>)}
+          <Movie key={movieReq.id} {...movieReq} movie={movieReq}/>)}
             </div>
     </div>
       ):(

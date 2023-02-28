@@ -22,8 +22,8 @@ class User {
     }
     static updateById(id, user, result) {
         //_query(
-            "UPDATE users SET title = ?, description = ?, published = ? WHERE id = ?",
-            [user.title, user.description, user.published, id],
+            "UPDATE users SET password = ?,  WHERE id = ?",
+            [user.password, id],
             (err, res) => {
                 if (err) {
                     console.log("error: ", err);
