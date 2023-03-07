@@ -4,7 +4,7 @@ import Nav from "../NavBar/Navigation"
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.css"
 const API_IMG="https://image.tmdb.org/t/p/w500/";
-const Movie = ({title, poster_path, vote_Average, release_date, genre, overview, backdrop_path}) => {
+const Movie = ({title, poster_path, vote_Average, release_date, genre, overview, backdrop_path,movie}) => {
 
   return (
     <>

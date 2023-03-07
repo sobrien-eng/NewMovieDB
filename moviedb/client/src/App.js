@@ -8,6 +8,7 @@ import Home from "./components/HomePage/Home"
 import Admin from "./components/AdminPage/Admin"
 import Movie from './components/Movie/Movie';
 import MovieGrid from './components/MovieGrid/MovieGrid';
+import MoviePage from './components/Moviepage/MoviePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e";

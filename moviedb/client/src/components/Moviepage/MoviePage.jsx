@@ -28,6 +28,7 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
 
     return (
         <div>
+            <Nav/>
             {movie && (
 
                 <>
