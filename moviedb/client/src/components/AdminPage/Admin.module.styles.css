@@ -1,0 +1,48 @@
+.main {
+    display: flex;
+    margin-left: 5%;
+    width: 90%;
+    background-color: rgb(249, 249, 249);
+
+}
+
+.colOne {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    padding: 20px;
+}
+.container-fluid{
+    background-color:  white;
+}
+.username {}
+
+.delBtn {
+    margin-left: 40%;
+}
+
+.colTwo {
+    flex-direction: column;
+    width: 60%;
+    margin-left: 7%;
+
+}
+
+.reviewContainer {
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.reviewRow {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.reviewColOne {
+    width: 80%;
+}
+
+.reviewColTwo {
+    margin-left: auto;
+}

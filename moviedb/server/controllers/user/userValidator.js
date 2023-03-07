@@ -1,12 +1,12 @@
 import Joi from "joi";
 import  object from "joi";
 import  string from "joi";
-import errorFunction from "../../utils/errorFunction.js";
+// import errorFunction from "../../utils/errorFunction.js";
 
 const validation = Joi.object({
-	first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
-    userName: Joi.string().alphanum().min(3).max(25).trim(true).required(),
+	firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    username: Joi.string().alphanum().min(3).max(25).trim(true).required(),
 	email: Joi.string().email().trim(true).required(),
 	password: Joi.string().min(8).trim(true).required(),
 	// mobileNumber: Joi.string()
@@ -19,7 +19,7 @@ const userValidation = async (req, res, next) => {
 	const payload = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-		userName: req.body.userName,
+		username: req.body.username,
 		email: req.body.email,
 		password: req.body.password,
 		//mobileNumber: req.body.mobileNumber,

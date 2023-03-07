@@ -1,3 +1,7 @@
+import Joi from "joi";
+import  object from "joi";
+import  string from "joi";
+//import errorFunction from "../../utils/errorFunction.js";
 class User {
     constructor(user) {
         this.firstName = user.firstName;
@@ -6,7 +10,7 @@ class User {
         this.password = user.password;
         this.email = user.email;
     }
-
+  
     static create(newUser, result) {
         //_query(
             "INSERT INTO users SET ?", newUser, (err, res) => {

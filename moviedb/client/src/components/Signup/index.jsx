@@ -21,7 +21,7 @@ const closeBtn = document.querySelector(".close");
 	const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
+		setData((prev) =>({ ...prev, [input.name]: input.value }));
 	};
 
 	const handleSubmit = async (e) => {
@@ -29,6 +29,7 @@ const closeBtn = document.querySelector(".close");
 		try {
 			const url = "http://localhost:3000/signup";
 			const { data: res } = await axios.post(url, data);
+			console.log(data);
 			navigate("/login");
 			console.log(res.message);
 		} catch (error) {
