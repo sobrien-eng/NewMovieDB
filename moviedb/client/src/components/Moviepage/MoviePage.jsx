@@ -63,6 +63,7 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
     };
     return (
         <div>
+            <Nav/>
             {movie && (
                 <>
                     <div className="card text-center bg-secondary mb-3">
