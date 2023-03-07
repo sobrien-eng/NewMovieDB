@@ -3,6 +3,7 @@ import Nav from "../NavBar/Navigation"
 import Movie from "../Movie/Movie"
 import { Form, FormControl, Button } from 'react-bootstrap';
 const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e";
+const genre_url = "https://api.themoviedb.org/3/genre/movie/list?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&language=en-US";
 const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query";
 const MovieGrid = () => {
   const [movies, setMovies]=useState([]);
@@ -18,6 +19,15 @@ const MovieGrid = () => {
   }, [])
 
 
+// useEffect(() => {
+//     fetch(genre_url)
+//     .then((res)=>res.json())
+//     .then(data=>{
+//       console.log(data);
+//       setMovies(data.results);
+//     })
+//   }, [])
+
   const searchMovie = async(e)=>{
     e.preventDefault();
     console.log("Searching");
@@ -32,6 +42,21 @@ const MovieGrid = () => {
       console.log(e);
     }
   }
+
+  // const searchGenre = async(e)=>{
+  //   e.preventDefault();
+  //   console.log("Searching");
+  //   try{
+  //     const url= genre_url;
+  //     const res= await fetch(url);
+  //     const data= await res.json();
+  //     console.log(data);
+  //     setMovies(data.results);
+  //   }
+  //   catch(e){
+  //     console.log(e);
+  //   }
+  // }
 
   const changeHandler=(e)=>{
     setQuery(e.target.value);

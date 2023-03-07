@@ -7,12 +7,14 @@ import Login from "./components/Login/index";
 import Home from "./components/HomePage/Home"
 import Admin from "./components/AdminPage/Admin"
 import Movie from './components/Movie/Movie';
+import MoviePage from './components/Moviepage/MoviePage';
 import MovieGrid from './components/MovieGrid/MovieGrid';
 import MoviePage from './components/Moviepage/MoviePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e";
 const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query";
+const genre_url = "https://api.themoviedb.org/3/genre/movie/list?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&language=en-US";
 
 function App() {
 	//const user = localStorage.getItem("token");
@@ -58,9 +60,10 @@ function App() {
 					<Route path="/signup" exact element={<Signup />} />
 					<Route path="/login" exact element={<Login />} />
 					<Route path="/admin" exact element={<Admin />} />
+					<Route path="/search" exact element={<Search />} />
 					<Route path="/movie/:id" exact element={<MoviePage />} />
 					{/* <Route path={['/user/:name', '/topics/:name']} component={UsersAndTopics} /> */}
-					<Route path="/" element={<Navigate replace to="/login" />} />
+			{/* <Route path="/" element={<Navigate replace to="/login" />} /> */}
 				</Routes>
 			</BrowserRouter>
 			<Form className="d-flex" onSubmit={searchMovie} autoComplete="off">
