@@ -1,5 +1,7 @@
+
 import { show, Button } from 'react-bootstrap';
 import React, { useState } from 'react';
+
 import Nav from "../NavBar/Navigation"
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.css"
