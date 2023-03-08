@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Nav from "../NavBar/Navigation"
 import Movie from "../Movie/Movie"
+
 import { Form, FormControl, Button } from 'react-bootstrap';
 const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e";
 const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query";
+
 const MovieGrid = () => {
   const [movies, setMovies] = useState([]);
   const [genreId, setGenreId] = useState(0);
@@ -169,7 +171,6 @@ const MovieGrid = () => {
   }
   return (
     <>
-
     <Form className="d-flex" autoComplete="off">
 				<FormControl
 					type="search"
@@ -210,6 +211,7 @@ const MovieGrid = () => {
         </div>
 			</Form>
   
+
     <div>
       {movies.length > 0 ?(
         <div className="container">
