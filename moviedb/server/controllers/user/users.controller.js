@@ -1,10 +1,10 @@
 
 import User from "../../models/user.model.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import errorFunction from "../../utils/errorFunction.js";
-import securePassword from "../../utils/hash.js";
-import {} from "../config/db.config.js";
+// import errorFunction from "../../utils/errorFunction.js";
+// import securePassword from "../../utils/hash.js";
+import { db } from "../../db.config.js";
 
 
 export async function create(req, res) {
@@ -14,15 +14,15 @@ export async function create(req, res) {
     //     });
     // }
     // try {
-	// 	const existingUser = await User.findOne({
-	// 		email: req.body.email,
-	// 	}).lean(true);
-	// 	if (existingUser) {
-	// 		res.status(403);
-	// 		return res.json(errorFunction(true, "User Already Exists"));
-	// 	} else {
-	// 		const hashedPassword = await securePassword(req.body.password);
-	// 		const newUser = User.create({
+    // 	const existingUser = await User.findOne({
+    // 		email: req.body.email,
+    // 	}).lean(true);
+    // 	if (existingUser) {
+    // 		res.status(403);
+    // 		return res.json(errorFunction(true, "User Already Exists"));
+    // 	} else {
+    // 		const hashedPassword = await securePassword(req.body.password);
+    // 		const newUser = User.create({
     //             firstName: req.body.firstName,
     //             lastName: req.body.lastName,
     //             userName: req.body.userName,
@@ -30,10 +30,10 @@ export async function create(req, res) {
     //             password: hashedPassword,
     //             mobileNumber: req.body.mobileNumber,
     //         });
-	// 		if (newUser) {
-	// 			res.status(201);
-	// 			return res.json(
-	// 				errorFunction(false, "User Created", newUser)
+    // 		if (newUser) {
+    // 			res.status(201);
+    // 			return res.json(
+    // 				errorFunction(false, "User Created", newUser)
     //                 //ADD TO DB
     //                 router.post('/signup', userValidation(req, res, next) => {
     //                     const firstName = req.body.firstName;
@@ -41,7 +41,7 @@ export async function create(req, res) {
     //                     const username = req.body.username;
     //                     const email = req.body.email;
     //                     const password = req.body.password;
-                    
+
     //                     db.query(
     //                         "INSERT INTO users (firstName, lastName, username, email, password) VALUES (?, ?, ?, ?, ?)",
     //                         [firstName, lastName, username, email, password],
@@ -49,34 +49,34 @@ export async function create(req, res) {
     //                             console.log(err);
     //                         }
     //                     );
-	// 			);
-	// 		} else {
-	// 			res.status(403);
-	// 			return res.json(errorFunction(true, "Error Creating User"));
-	// 		}
-	// 	}
-	// } catch (error) {
-	// 	res.status(400);
-	// 	console.log(error);
-	// 	return res.json(errorFunction(true, "Error Adding user"));
-	// }
+    // 			);
+    // 		} else {
+    // 			res.status(403);
+    // 			return res.json(errorFunction(true, "Error Creating User"));
+    // 		}
+    // 	}
+    // } catch (error) {
+    // 	res.status(400);
+    // 	console.log(error);
+    // 	return res.json(errorFunction(true, "Error Adding user"));
+    // }
 }
 export const getAllUsers = async (req, res) => {
     try {
-		const allUsers = await User.find();
-		if (allUsers) {
-			res.status(201);
-			return res.json(
-				errorFunction(false, "Sending all users", allUsers)
-			);
-		} else {
-			res.status(403);
-			return res.json(errorFunction(true, "Error getting Users"));
-		}
-	} catch (error) {
-		res.status(400);
-		return res.json(errorFunction(true, "Error getting user"));
-	}
+        const allUsers = await User.find();
+        if (allUsers) {
+            res.status(201);
+            return res.json(
+                errorFunction(false, "Sending all users", allUsers)
+            );
+        } else {
+            res.status(403);
+            return res.json(errorFunction(true, "Error getting Users"));
+        }
+    } catch (error) {
+        res.status(400);
+        return res.json(errorFunction(true, "Error getting user"));
+    }
 };
 
 export const getUser = async (req, res) => {
@@ -161,67 +161,143 @@ export const deleteUser = async (req, res) => {
         res.status(403).json("User was not deleted, try again");
     }
 };
-export const signup = async (req, res) => {
+// export const signup = async (req, res) => {
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPass = await bcrypt.hash(req.body.password, salt);
-    req.body.password = hashedPass
-    const newUser = new User(req.body);
-    const { username } = req.body
-    try {
-        const oldUser = await User.findOne({ username });
-        if (oldUser)
-            return res.status(400).json({ message: "User already exists" });
-        const user = await newUser.save();
-        const token = jwt.sign(
-            { username: user.username, id: user._id },
-            process.env.JWTKEY,
-            { expiresIn: "1h" }
-        );
-        res.status(200).json({ user, token });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-export const login = async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const user = await User.findOne({ username: username });
-        if (user) {
-            const validity = await bcrypt.compare(password, user.password);
-            if (!validity) {
-                res.status(400).json("Incorrect password");
-            } else {
-                const token = jwt.sign(
-                    { username: user.username, id: user._id },
-                    process.env.JWTKEY,
-                    { expiresIn: "1h" }
-                );
-                res.status(200).json({ user, token });
-                const username = req.body.username;
-                const password = req.body.password;
-            
-                db.query(
-                    "SELECT * FROM users WHERE username = ? AND password = ?",
-                    [username, password],
-                    (err, result) => {
-                        if(err){
-                            res.send({err:err});
-                            console.log(err);
-                        } 
-                        if(result){
-                            res.send(result);
-                        } else{
-                            res.send({message: "This username/password combination wasn't recognized."})
-                        }
-                        
-                    }
-                );
-            }
-        } else {
-            res.status(404).json("User not found");
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPass = await bcrypt.hash(req.body.password, salt);
+//     req.body.password = hashedPass
+//     const newUser = new User(req.body);
+//     const { username } = req.body
+//     try {
+//         const oldUser = await User.findOne({ username });
+//         if (oldUser)
+//             return res.status(400).json({ message: "User already exists" });
+//         const user = await newUser.save();
+//         const token = jwt.sign(
+//             { username: user.username, id: user._id },
+//             process.env.JWTKEY,
+//             { expiresIn: "1h" }
+//         );
+//         res.status(200).json({ user, token });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+// export const login = async (req, res) => {
+//     const { username, password } = req.body;
+//     try {
+//         const user = await User.findOne({ username: username });
+//         if (user) {
+//             const validity = await bcrypt.compare(password, user.password);
+//             if (!validity) {
+//                 res.status(400).json("Incorrect password");
+//             } else {
+//                 const token = jwt.sign(
+//                     { username: user.username, id: user._id },
+//                     process.env.JWTKEY,
+//                     { expiresIn: "1h" }
+//                 );
+//                 res.status(200).json({ user, token });
+//                 const username = req.body.username;
+//                 const password = req.body.password;
+
+//                 db.query(
+//                     "SELECT * FROM users WHERE username = ? AND password = ?",
+//                     [username, password],
+//                     (err, result) => {
+//                         if (err) {
+//                             res.send({ err: err });
+//                             console.log(err);
+//                         }
+//                         if (result) {
+//                             res.send(result);
+//                         } else {
+//                             res.send({ message: "This username/password combination wasn't recognized." })
+//                         }
+
+//                     }
+//                 );
+//             }
+//         } else {
+//             res.status(404).json("User not found");
+//         }
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// };
+
+export const signup = (req, res) => {
+    //CHECK EXISTING USER
+    const q = "SELECT * FROM users WHERE email = ? OR username = ?";
+
+    db.query(q, [req.body.email, req.body.username], (err, data) => {
+        if (err){
+            console.log("select");
+            console.log("error"+ JSON.stringify(err));
+         return res.status(500).json(err);
         }
-    } catch (err) {
-        res.status(500).json(err);
-    }
+        if (data.length) return res.status(409).json("User already exists!");
+
+        //Hash the password and create a user
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+
+        const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
+        const values = [req.body.username, req.body.email, hash];
+
+        db.query(q, [values], (err, data) => {
+            if (err){
+                console.log("select");
+                console.log(JSON.stringify(err));
+             return res.status(500).json(err);
+            }
+            return res.status(200).json("User has been created.");
+        });
+    });
+    console.log("ouch");
+};
+
+export const login = (req, res) => {
+    //CHECK USER
+
+    const q = "SELECT * FROM users WHERE username = ?";
+
+    db.query(q, [req.body.username], (err, data) => {
+        console.log(req.body.username);
+        if (err) {
+            console.log("select");
+            console.log(JSON.stringify("error"+ err));
+            return res.status(500).json(err);
+        }
+        if (data.length === 0) {
+            return res.status(404).json("User not found!");
+        }
+
+        //Check password
+        const isPasswordCorrect = bcrypt.compareSync(
+            req.body.password,
+            data[0].password
+        );
+        console.log(isPasswordCorrect);
+        if (!isPasswordCorrect)
+            return res.status(400).json("Wrong username or password!");
+
+        const token = jwt.sign({ id: data[0].id }, "jwtkey");
+        const { password, ...other } = data[0];
+        console.log(password);
+        res
+            .cookie("access_token", token, {
+                httpOnly: true,
+            })
+            .status(200)
+            .json(other);
+    });
+    console.log("ouch2");
+};
+
+export const logout = (req, res) => {
+    res.clearCookie("access_token", {
+        sameSite: "none",
+        secure: true
+    }).status(200).json("User has been logged out.")
 };

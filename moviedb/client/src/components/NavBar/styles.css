@@ -1,9 +1,10 @@
 
-.navBar{
-    background-color: #2d64fc;
+.navbar{
+    background-color: #D6D1CD;
     display:flex;
     flex-direction: row;
     width: 100%;
+    
 }
 #settings{
     width: 65px;

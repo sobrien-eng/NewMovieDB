@@ -13,21 +13,21 @@ const Login = () => {
 	};
 
 	const handleSubmit = async (e) => {
-		// e.preventDefault();
-		// try {
-		// 	const url = "http://localhost:4000/login";
-		// 	const { data: res } = login(formData, navigate);
-		// 	localStorage.setItem("token", res.data);
-		// 	window.location = "/";
-		// } catch (error) {
-		// 	if (
-		// 		error.response &&
-		// 		error.response.status >= 400 &&
-		// 		error.response.status <= 500
-		// 	) {
-		// 		setError(error.response.data.message);
-		// 	}
-		// }
+		e.preventDefault();
+		try {
+			const url = "http://localhost:3000/login";
+			const { data: res } = await axios.post(url, data);
+			localStorage.setItem("token", res.data);
+			window.location = "/";
+		} catch (error) {
+			if (
+				error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+			) {
+				setError(error.response.data.message);
+			}
+		}
 	};
 
 	return (
