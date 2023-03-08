@@ -15,21 +15,31 @@ const MovieGrid = () => {
     fetch(API_URL)
     .then((res)=>res.json())
     .then(data=>{
-      console.log(data);
+      
       setMovies(data.results);
     })
   }, [])
 
-
-  const searchMovie = async(e)=>{
+  const searchGenre = async(e)=>{
     e.preventDefault();
     console.log("Searching Movie");
     try{
       const url=`https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093&query=${query}`;
       const res= await fetch(url);
       const data= await res.json();
-      console.log(data);
 
+
+ var test =[];      
+
+//  var oof = data.results.genre_ids;
+//  test.push(oof);
+//  console.log(test);
+
+for(i=0; i<data.results.length; i++){
+  var oof = data.results[i].genre_ids;
+  //test.push(oof);
+}
+console.log(oof);
       let genreContent = document.getElementById("genreContent");
       let selection = genreContent.value;
       filterByGenre(selection);
@@ -46,7 +56,50 @@ const MovieGrid = () => {
         foundMovies.push(data.results[i])
       }
     }
-      console.log(foundMovies);
+    
+      setMovies(foundMovies);
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
+  const searchMovie = async(e)=>{
+    e.preventDefault();
+    console.log("Searching Movie");
+    try{
+      const url=`https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093&query=${query}`;
+      const res= await fetch(url);
+      const data= await res.json();
+
+
+ var test =[];      
+
+//  var oof = data.results.genre_ids;
+//  test.push(oof);
+//  console.log(test);
+
+for(i=0; i<data.results.length; i++){
+  var oof = data.results[i].genre_ids;
+  //test.push(oof);
+}
+console.log(oof);
+      let genreContent = document.getElementById("genreContent");
+      let selection = genreContent.value;
+      filterByGenre(selection);
+
+      let foundMovies = [];
+      if (genreId != 0) {
+      for (var i = 0; i < data.results.length; i++) {
+        if(data.results[i].genre_ids.includes(genreId)) {
+          foundMovies.push(data.results[i])
+        }
+      }
+    } else {
+      for (var i = 0; i < data.results.length; i++) {
+        foundMovies.push(data.results[i])
+      }
+    }
+    
       setMovies(foundMovies);
     }
     catch(e){
@@ -61,14 +114,16 @@ const MovieGrid = () => {
       const url=`https://api.themoviedb.org/3/search/person?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query=${query}`;
       const res= await fetch(url);
       const data= await res.json();
-      
+      console.log('search actor' + data);
       let genreContent = document.getElementById("genreContent");
+    
       let selection = genreContent.value;
+
       filterByGenre(selection);
       
       let foundMovies = [];
 
-      if(genreId = 0) {
+      if(genreId == 0) {
         for (var i = 0; i < data.results.length; i++) {
           if(data.results[i].known_for_department == 'Acting') {
             for(var j = 0; j < data.results[i].known_for.length; j++) {
@@ -89,7 +144,7 @@ const MovieGrid = () => {
       }  
 
       setMovies(foundMovies);
-      console.log(foundMovies);
+  
     }
     catch(e){
       console.log(e);
@@ -184,6 +239,8 @@ const MovieGrid = () => {
           <div>
             <Button variant="secondary" onClick={searchMovie} type="submit">Search by Title</Button>
             <Button variant="secondary" onClick={searchActor} type="submit">Search by Actor</Button>
+            <Button variant="secondary" onClick={searchGenre} type="submit">Search by Genre</Button>
+
           </div>
         
           <select id="genreContent" class="dropdown-content">

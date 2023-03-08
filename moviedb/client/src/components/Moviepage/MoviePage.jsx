@@ -12,7 +12,7 @@ const API_IMG = "https://image.tmdb.org/t/p/w500/";
 const moviesURL = "https://api.themoviedb.org/3/movie/";
 const apiKey = "245b5a23f0b29a2cd2d2fd6c071bad5e";
 
-const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, genre, overview, backdrop_path }) => {
+const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, genres,genre_ids, genre_name, overview, backdrop_path }) => {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
 
@@ -45,9 +45,10 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        console.log('push')
+       
         try {
-            const url = "http://localhost:3000/movie/{id}";
+            const url = "http://localhost:3000/addReview";
             const { data: res } = await axios.post(url, data);
             console.log(data);
             console.log(res.message);
@@ -80,8 +81,9 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                             <div>
                                                 <div>{movie.vote_Average}</div>
                                                 <div>{movie.release_date}</div>
-                                                <div>{movie.genre_name}</div>
+                         
                                                 <div>{movie.runtime} mins</div>
+                                             
                                             </div>
                                         </div>
                                     </div>
@@ -103,8 +105,8 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                        onChange={handleChange} maxLength={1}></FormControl>
                                     <Button variant="secondary" type="submit">+</Button>
                                 </Form> */}
-                                <form className={styles.form_container} onSubmit={handleSubmit}>
-                                    <h1>Login to Your Account</h1>
+                                <form className={styles.form_container}>
+                                
                                     <input
                                         type="text"
                                         placeholder="Review"
@@ -126,7 +128,7 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                         className={styles.input}
                                     />
                                     {error && <div className={styles.error_msg}>{error}</div>}
-                                    <button type="submit" className={styles.blue_btn}>
+                                    <button type="submit" className={styles.blue_btn} onClick={handleSubmit}>
                                         +
                                     </button>
                                 </form>

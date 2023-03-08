@@ -29,7 +29,7 @@ function App() {
 		fetch(API_URL)
 			.then((res) => res.json())
 			.then(data => {
-				console.log(data);
+			
 				setMovies(data.results);
 			})
 	}, [])
@@ -42,14 +42,12 @@ function App() {
 			const url = `https://api.themoviedb.org/3/search/movie?api_key=bcc4ff10c2939665232d75d8bf0ec093&query=${query}`;
 			const res = await fetch(url);
 			const data = await res.json();
-			console.log(data);
+		
 
 			console.log("data.results");
 			setMovies(data.results);
-			console.log(movies);
-
-			setMovies(data.results);
-
+		
+		
 		}
 		catch (e) {
 			console.log(e);
@@ -102,7 +100,7 @@ function App() {
 			{/* <Route path="/" element={<Navigate replace to="/login" />} /> */}
 				</Routes>
 			</BrowserRouter>
-			<Form className="d-flex" onSubmit={searchMovie} autoComplete="off">
+			{/* <Form className="d-flex" onSubmit={searchMovie} autoComplete="off">
 				<FormControl
 					type="search"
 					placeholder="Movie Search"
@@ -113,7 +111,7 @@ function App() {
 				<Button variant="secondary" type="submit">Search</Button>
 			</Form>
 
-			<div>helo</div>
+		
 			<Form className="genres" onSubmit={searchMovieGenre}>
 				<FormControl
 					type="search"
@@ -121,7 +119,7 @@ function App() {
 					name="query"
 					value={query} onChange={changeHandler}></FormControl>
 				<Button variant="secondary" type="submit">Find Genre</Button>
-			</Form>
+			</Form> */}
 
 
 			<div>

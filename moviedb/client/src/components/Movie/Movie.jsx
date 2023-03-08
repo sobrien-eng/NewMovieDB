@@ -6,7 +6,7 @@ import Nav from "../NavBar/Navigation"
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.css"
 const API_IMG="https://image.tmdb.org/t/p/w500/";
-const Movie = ({title, poster_path, vote_Average, release_date, genre, overview, backdrop_path, movie}) => {
+const Movie = ({title, poster_path, vote_Average, release_date, genres, overview, backdrop_path, movie, id}) => {
 
   return (
     <>
@@ -18,7 +18,8 @@ const Movie = ({title, poster_path, vote_Average, release_date, genre, overview,
 
             <img className="card-img-top" style={{ width: '14rem' }} src={API_IMG + poster_path} />
             <h3>
-              <Link to={`/movie/${movie.id}`}>
+              
+              <Link to={`/movie/${id}`}>
                 {title}
               </Link>
             </h3>
