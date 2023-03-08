@@ -4,7 +4,8 @@ const RevRatCard = () => {
     const closeBtn = document.querySelector(".close");
     const [data, setData] = useState({
         review: "",
-        rating: ""
+        rating: "",
+        movieId, id
     });
     const [error, setError] = useState("");
 

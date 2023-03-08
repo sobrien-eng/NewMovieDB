@@ -12,7 +12,7 @@ router.post('/addReview', addReview);
 
 router.post('/getRevRats', getRevRats);
 
-router.deleteReview('review/:id', deleteReview);
+router.post('/deleteReview/:id', deleteReview);
 
 };
 
