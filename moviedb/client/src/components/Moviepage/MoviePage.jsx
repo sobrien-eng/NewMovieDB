@@ -7,7 +7,7 @@ import styles from "./styles.module.css";
 import axios from "axios";
 import { Navbar, Container, Form, FormControl } from 'react-bootstrap';
 
-import { RevRat } from '../RevRat/RevRat';
+import  RevRat  from '../RevRat/RevRat';
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
 const moviesURL = "https://api.themoviedb.org/3/movie/";
 const apiKey = "245b5a23f0b29a2cd2d2fd6c071bad5e";
@@ -114,7 +114,7 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                         onChange={handleChange}
                                         value={data.review}
                                         required
-                                        maxLength={5}
+                                        maxLength={250}
                                         className={styles.input}
                                     />
                                     <input

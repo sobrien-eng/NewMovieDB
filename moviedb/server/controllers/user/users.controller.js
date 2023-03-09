@@ -7,60 +7,6 @@ import jwt from "jsonwebtoken";
 import { db } from "../../db.config.js";
 
 
-export async function create(req, res) {
-    // if (!req.body) {
-    //     res.status(400).send({
-    //         message: "Content can not be empty!"
-    //     });
-    // }
-    // try {
-    // 	const existingUser = await User.findOne({
-    // 		email: req.body.email,
-    // 	}).lean(true);
-    // 	if (existingUser) {
-    // 		res.status(403);
-    // 		return res.json(errorFunction(true, "User Already Exists"));
-    // 	} else {
-    // 		const hashedPassword = await securePassword(req.body.password);
-    // 		const newUser = User.create({
-    //             firstName: req.body.firstName,
-    //             lastName: req.body.lastName,
-    //             userName: req.body.userName,
-    //             email: req.body.email,
-    //             password: hashedPassword,
-    //             mobileNumber: req.body.mobileNumber,
-    //         });
-    // 		if (newUser) {
-    // 			res.status(201);
-    // 			return res.json(
-    // 				errorFunction(false, "User Created", newUser)
-    //                 //ADD TO DB
-    //                 router.post('/signup', userValidation(req, res, next) => {
-    //                     const firstName = req.body.firstName;
-    //                     const lastName = req.body.lastName;
-    //                     const username = req.body.username;
-    //                     const email = req.body.email;
-    //                     const password = req.body.password;
-
-    //                     db.query(
-    //                         "INSERT INTO users (firstName, lastName, username, email, password) VALUES (?, ?, ?, ?, ?)",
-    //                         [firstName, lastName, username, email, password],
-    //                         (err, result) => {
-    //                             console.log(err);
-    //                         }
-    //                     );
-    // 			);
-    // 		} else {
-    // 			res.status(403);
-    // 			return res.json(errorFunction(true, "Error Creating User"));
-    // 		}
-    // 	}
-    // } catch (error) {
-    // 	res.status(400);
-    // 	console.log(error);
-    // 	return res.json(errorFunction(true, "Error Adding user"));
-    // }
-}
 export const getAllUsers = async (req, res) => {
     try {
         const allUsers = await User.find();
@@ -147,94 +93,17 @@ export const updateUser = async (req, res) => {
             .json("Access Denied.");
     }
 };
-export const deleteUser = async (req, res) => {
-    const id = req.params.id;
-    const { currentUserId, currentUserAdmin } = req.body;
-    if (currentUserId == id || currentUserAdmin) {
-        try {
-            await User.findByIdAndDelete(id);
-            res.status(200).json("User Deleted");
-        } catch (error) {
-            res.status(500).json(err);
-        }
-    } else {
-        res.status(403).json("User was not deleted, try again");
-    }
-};
-// export const signup = async (req, res) => {
-
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     req.body.password = hashedPass
-//     const newUser = new User(req.body);
-//     const { username } = req.body
-//     try {
-//         const oldUser = await User.findOne({ username });
-//         if (oldUser)
-//             return res.status(400).json({ message: "User already exists" });
-//         const user = await newUser.save();
-//         const token = jwt.sign(
-//             { username: user.username, id: user._id },
-//             process.env.JWTKEY,
-//             { expiresIn: "1h" }
-//         );
-//         res.status(200).json({ user, token });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// };
-// export const login = async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//         const user = await User.findOne({ username: username });
-//         if (user) {
-//             const validity = await bcrypt.compare(password, user.password);
-//             if (!validity) {
-//                 res.status(400).json("Incorrect password");
-//             } else {
-//                 const token = jwt.sign(
-//                     { username: user.username, id: user._id },
-//                     process.env.JWTKEY,
-//                     { expiresIn: "1h" }
-//                 );
-//                 res.status(200).json({ user, token });
-//                 const username = req.body.username;
-//                 const password = req.body.password;
-
-//                 db.query(
-//                     "SELECT * FROM users WHERE username = ? AND password = ?",
-//                     [username, password],
-//                     (err, result) => {
-//                         if (err) {
-//                             res.send({ err: err });
-//                             console.log(err);
-//                         }
-//                         if (result) {
-//                             res.send(result);
-//                         } else {
-//                             res.send({ message: "This username/password combination wasn't recognized." })
-//                         }
-
-//                     }
-//                 );
-//             }
-//         } else {
-//             res.status(404).json("User not found");
-//         }
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// };
 
 export const signup = (req, res) => {
     //CHECK EXISTING USER
     const q = "SELECT * FROM users WHERE email = ? OR username = ?";
 
     db.query(q, [req.body.email, req.body.username], (err, data) => {
-        if (err){
+        if (err) {
             console.log("select");
-            console.log("error"+ JSON.stringify(err));
-         return res.status(500).json(err);
+            console.log("error" + JSON.stringify(err));
+
+            return res.status(500).json(err);
         }
         if (data.length) return res.status(409).json("User already exists!");
 
@@ -246,10 +115,10 @@ export const signup = (req, res) => {
         const values = [req.body.username, req.body.email, hash];
 
         db.query(q, [values], (err, data) => {
-            if (err){
+            if (err) {
                 console.log("select");
                 console.log(JSON.stringify(err));
-             return res.status(500).json(err);
+                return res.status(500).json(err);
             }
             return res.status(200).json("User has been created.");
         });
@@ -266,12 +135,10 @@ export const login = (req, res) => {
         console.log(req.body.username);
         if (err) {
             console.log("select");
-            console.log(JSON.stringify("error"+ err));
+            console.log(JSON.stringify("error" + err));
             return res.status(500).json(err);
         }
-        if (data.length === 0) {
-            return res.status(404).json("User not found!");
-        }
+        return res.status(200).json("done.");
 
         //Check password
         const isPasswordCorrect = bcrypt.compareSync(
@@ -301,3 +168,16 @@ export const logout = (req, res) => {
         secure: true
     }).status(200).json("User has been logged out.")
 };
+
+export const deleteUser = (req, res) => {
+    
+    const q = "DELETE FROM users WHERE username = ?";
+
+    db.query(q, [req.body.username], (err, data) => {
+        if (err) {
+            console.log("error" + JSON.stringify(err));
+            return res.status(500).json(err);
+        }  return res.status(200).json("User delete.")
+        
+    })
+}
