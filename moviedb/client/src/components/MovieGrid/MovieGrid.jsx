@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Nav from "../NavBar/Navigation"
 import Movie from "../Movie/Movie"
-
+import './styles.css';
 import { Form, FormControl, Button } from 'react-bootstrap';
 const API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e";
 const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=245b5a23f0b29a2cd2d2fd6c071bad5e&query";
@@ -236,10 +236,10 @@ console.log(oof);
 					value={query} onChange={changeHandler}></FormControl>
           
 				<div class="dropBtn" variant="secondary" type="submit">
-          <div>
-            <Button variant="secondary" onClick={searchMovie} type="submit">Search by Title</Button>
-            <Button variant="secondary" onClick={searchActor} type="submit">Search by Actor</Button>
-            <Button variant="secondary" onClick={searchGenre} type="submit">Search by Genre</Button>
+          <div className='buttons'>
+            <Button className='button' onClick={searchMovie} type="submit">Search by Title</Button>
+            <Button className='button' onClick={searchActor} type="submit">Search by Actor</Button>
+            <Button className='button' onClick={searchGenre} type="submit">Search by Genre</Button>
 
           </div>
         

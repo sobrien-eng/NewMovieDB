@@ -41,7 +41,7 @@ const Navigation = () => {
         //         </div>
         //     </div>
         // </nav>
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg" sticky='top' variant='light'>
         <Container>
         <Navbar.Brand href="/main">Moviedb</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

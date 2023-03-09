@@ -1,0 +1,23 @@
+.d-flex{
+    height: 50px;
+    margin: 10px;
+    flex-direction: row;
+    display: flex;
+}
+
+.button{
+    display: flex;
+    flex-direction: row;
+    background-color: #5F7781;
+    border-color: #69828C;
+    color: aliceblue;
+}
+
+.button:hover{
+    background-color: #69828C;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+}
