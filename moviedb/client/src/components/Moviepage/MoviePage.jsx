@@ -29,10 +29,11 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
         getMovie(movieUrl);
     }, []);
     const closeBtn = document.querySelector(".close");
+    const test = useParams();
     const [data, setData] = useState({
         review: "",
         rating: "",
-        movieId: id
+        movieId: test
     });
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -44,9 +45,9 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
         setData((prev) => ({ ...prev, [input.name]: input.value }));
     };
 
+    
     const handleSubmit = async (e) => {
-        console.log('push')
-       
+        e.preventDefault();
         try {
             const url = "http://localhost:3000/addReview";
             const { data: res } = await axios.post(url, data);
@@ -114,7 +115,7 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                         onChange={handleChange}
                                         value={data.review}
                                         required
-                                        maxLength={250}
+                                        maxLength={5}
                                         className={styles.input}
                                     />
                                     <input
@@ -124,7 +125,8 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                         onChange={handleChange}
                                         value={data.rating}
                                         required
-                                        maxLength={1}
+                                        max="5" 
+                                        min="0"
                                         className={styles.input}
                                     />
                                     {error && <div className={styles.error_msg}>{error}</div>}
@@ -134,7 +136,7 @@ const MoviePage = ({ title, poster_path, vote_Average, release_date, runtime, ge
                                 </form>
                             </div>
                             <div>
-                                <RevRat />
+                            
                             </div>
                         </div>
                     </div>

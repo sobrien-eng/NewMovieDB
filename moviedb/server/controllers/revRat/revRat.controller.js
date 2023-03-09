@@ -2,9 +2,10 @@ import { db } from "../../db.config.js";
 
 export const addReview = (req, res) => {
 //NEED MOVIE ID
+const q = "INSERT INTO reviewRating (`review`,`rating`, `movieId`) VALUES (?)";
     db.query(q, [req.body.review, req.body.rating, req.body.movieId], (err, data) => {
-        const q = "INSERT INTO reviewRating (`review`,`rating`, `movieId`) VALUES (?)";
-        const values = [req.body.review, req.body.rating];
+        
+        const values = [req.body.review, req.body.rating, req.movieId];
 
         db.query(q, [values], (err, data) => {
             if (err){
