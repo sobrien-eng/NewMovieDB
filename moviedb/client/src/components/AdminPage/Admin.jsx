@@ -7,18 +7,22 @@ import styles from './Admin.module.styles.css';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 const Admin = () => {
+    const closeBtn = document.querySelector(".close");
     const [data, setData] = useState({
-		username: "",
-	});
-	const [error, setError] = useState("");
+        username: "",
+    });
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
     const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-	};
-    const handleSearch = async (e) => {
+        setData((prev) => ({ ...prev, [input.name]: input.value }));
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const url = "http://localhost:3000/findUser";
-            const { data: res } = await axios.post(url, data);
+            const url = "http://localhost:3000/deleteUser";
+            const { data: res } = await axios.delete(url, data);
             console.log(data);
             console.log(res.message);
         } catch (error) {
@@ -34,14 +38,23 @@ const Admin = () => {
     return (
         <>
             <Nav />
-            <form class="container-fluid" onSubmit={handleSearch}>
-                <div class="input-group">
-                    <div className='labelText'></div>
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" onChange={handleChange} value={data.username} required />
-                </div>
-                
+            <div>
+            <form className={styles.form_container} >
+                <input
+                    type="text"
+                    placeholder="Enter a username"
+                    name="username"
+                    onChange={handleChange}
+                    value={data.username}
+                    required
+                    maxLength={25}
+                />
+                {error && <div className={styles.error_msg}>{error}</div>}
+                <button type="submit" className={styles.blue_btn} onClick={handleSubmit}>
+                    Delete
+                </button>
             </form>
+            </div>
         </>
     )
 }

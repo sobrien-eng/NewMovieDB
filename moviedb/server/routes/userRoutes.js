@@ -1,5 +1,5 @@
 import express from 'express'
-import { deleteUser, logout, create, getAllUsers, findByUsername, findAllAdmin, getUser, updateUser, login, signup } from '../controllers/user/users.controller.js'
+import { deleteUser, logout, login, signup } from '../controllers/user/users.controller.js'
 // import validation from '../jwt/validation.js';
 import userValidation from "../controllers/user/userValidator.js";
 
@@ -12,10 +12,10 @@ router.post('/signup', signup, userValidation);
 
 // router.post('/signup', register, userValidation);
 
-router.post('/login', login, userValidation);
+router.post('/login', login);
 
 router.post('/logout', logout);
-router.delete('/user', deleteUser);
+router.delete('/deleteUser', deleteUser);
 // router.get("/", validation, getAllUsers);
 
 // router.get("/:id", validation, getUser);

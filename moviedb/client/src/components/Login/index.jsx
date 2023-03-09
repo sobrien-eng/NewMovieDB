@@ -1,15 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 // import {login} from "../../actions/user";
 
 const Login = () => {
-	const [data, setData] = useState({ email: "", password: "" });
+	const closeBtn = document.querySelector(".close");
+	const [data, setData] = useState({
+		username: "",
+		password: "",
+	});
 	const [error, setError] = useState("");
+	const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
+		setData((prev) =>({ ...prev, [input.name]: input.value }));
 	};
 
 	const handleSubmit = async (e) => {
@@ -17,8 +22,9 @@ const Login = () => {
 		try {
 			const url = "http://localhost:3000/login";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
+			console.log(data);
+			navigate("/main");
+			console.log(res.message);
 		} catch (error) {
 			if (
 				error.response &&
